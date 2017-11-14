@@ -1,6 +1,10 @@
 FROM simexp/minc-toolkit:latest
 
+MAINTAINER Montreal Neurological Institute (https://github.com/BIC-MNI)
+
 RUN apt-get install -y rubygems
+
+#Ruby installation steps  taken from https://github.com/drecom/docker-ubuntu-ruby/blob/master/Dockerfile
 
 RUN git clone git://github.com/rbenv/rbenv.git /usr/local/rbenv \
 &&  git clone git://github.com/rbenv/ruby-build.git /usr/local/rbenv/plugins/ruby-build \
