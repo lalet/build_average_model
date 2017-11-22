@@ -2,7 +2,12 @@ FROM simexp/minc-toolkit:latest
 
 MAINTAINER Montreal Neurological Institute (https://github.com/BIC-MNI)
 
-RUN apt-get install -y rubygems
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    apt-get install -y octave rubygems && \
+    apt-get remove -y software-properties-common 
+
+#RUN apt-get install -y rubygems
 
 #Ruby installation steps  taken from https://github.com/drecom/docker-ubuntu-ruby/blob/master/Dockerfile
 
@@ -34,3 +39,5 @@ RUN git clone https://github.com/vfonov/build_average_model.git /usr/local/build
 
 ENV RUBYLIB ${RUBYLIB}:/usr/local/build_average_model 
 
+RUN apt-get autoclean && apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
