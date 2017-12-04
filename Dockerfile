@@ -1,15 +1,45 @@
-FROM simexp/minc-toolkit:latest
+FROM ubuntu:16.04
 
 MAINTAINER Montreal Neurological Institute (https://github.com/BIC-MNI)
 
+#Installation of minc-toolkit
 RUN apt-get update && \
+    apt-get install -y \
+    bzip2 \
+    freeglut3 \
+    git \
+    gcc \
+    imagemagick \
+    libc6 \
+    libexpat1 \
+    libgl1 \
+    libjpeg62 \
+    libstdc++6 \
+    libtiff5 \
+    libuuid1 \
+    libxau6 \
+    libxcb1 \
+    libxdmcp6 \
+    libxext6 \
+    libx11-6 \
+    make \
+    perl \
+    sudo \
+    wget 
+
+RUN apt-get dist-upgrade -y && \
     apt-get install -y software-properties-common && \
-    apt-get install -y octave rubygems && \
-    apt-get remove -y software-properties-common 
+    apt-get install -y octave && \
+    apt-get install -y rubygems && \
+    apt-get remove -y software-properties-common
 
-#RUN apt-get install -y rubygems
 
-#Ruby installation steps  taken from https://github.com/drecom/docker-ubuntu-ruby/blob/master/Dockerfile
+RUN sudo dpkg --add-architecture amd64 && \
+    sudo apt-get update
+
+RUN wget http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-1.9.15-20170529-Ubuntu_16.04-x86_64.deb -P /tmp
+RUN dpkg -i /tmp/minc-toolkit-1.9.15-20170529-Ubuntu_16.04-x86_64.deb
+RUN rm /tmp/minc-toolkit-1.9.15-20170529-Ubuntu_16.04-x86_64.deb
 
 RUN git clone git://github.com/rbenv/rbenv.git /usr/local/rbenv \
 &&  git clone git://github.com/rbenv/ruby-build.git /usr/local/rbenv/plugins/ruby-build \
@@ -39,5 +69,14 @@ RUN git clone https://github.com/vfonov/build_average_model.git /usr/local/build
 
 ENV RUBYLIB ${RUBYLIB}:/usr/local/build_average_model 
 
+#Folder to add the minc files
+RUN mkdir -p /opt/minc/1.9.15/share/icbm152_model_09a
+
+ADD ./mni_icbm152_t1_tal_nlin_sym_09a_mask.mnc /opt/minc/1.9.15/share/icbm152_model_09a
+
+ADD ./mni_icbm152_t1_tal_nlin_sym_09a.mnc  /opt/minc/1.9.15/share/icbm152_model_09a
+
 RUN apt-get autoclean && apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN apt-get remove -y libopenblas-base
