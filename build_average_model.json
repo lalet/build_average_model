@@ -1,7 +1,7 @@
 {
     "tool-version": "0.1-beta", 
     "name": "Build_Average_Model", 
-    "command-line": "build_average_model.rb NUMBER_OF_ITERATIONS --serial --model MODEL_FILE --model-mask MODEL_MASK_FILE  --list LIST_FILES -o OUTPUT", 
+    "command-line": "export RUBYLIB=/work/build_average_model;source /opt/minc/1.9.15/minc-toolkit-config.sh;build_average_model.rb NUMBER_OF_ITERATIONS --serial --model MODEL_FILE --model-mask MODEL_MASK_FILE  --list LIST_FILES -o OUTPUT", 
     "inputs": [
         {
             "description": "Number of rounds of iteration performed at each level", 
