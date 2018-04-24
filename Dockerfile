@@ -76,7 +76,15 @@ ADD ./mni_icbm152_t1_tal_nlin_sym_09a_mask.mnc /opt/minc/1.9.15/share/icbm152_mo
 
 ADD ./mni_icbm152_t1_tal_nlin_sym_09a.mnc  /opt/minc/1.9.15/share/icbm152_model_09a
 
-ADD ./bash_profile /root/
+RUN echo 'export MINC_TOOLKIT=/opt/minc/1.9.15' >> /root/.bashrc \
+&&  echo 'export MINC_TOOLKIT_VERSION="1.9.15-20170529"' >> /root/.bashrc \
+&&  echo 'export PATH=/opt/minc/1.9.15/bin:/opt/minc/1.9.15/pipeline:${PATH}' >> /root/.bashrc \ 
+&&  echo 'export PERL5LIB=/opt/minc/1.9.15/perl:/opt/minc/1.9.15/pipeline:${PERL5LIB}' >> /root/.bashrc \
+&&  echo 'export LD_LIBRARY_PATH=/opt/minc/1.9.15/lib:/opt/minc/1.9.15/lib/InsightToolkit:${LD_LIBRARY_PATH}' >> /root/.bashrc \
+&&  echo 'export MNI_DATAPATH=/opt/minc/1.9.15/share' >> /root/.bashrc \
+&&  echo 'export MINC_FORCE_V2=1' >>  /root/.bashrc \
+&&  echo 'export MINC_COMPRESS=4' >> /root/.bashrc \
+&&  echo 'export VOLUME_CACHE_THRESHOLD=-1' >> /root/.bashrc
 
 RUN apt-get autoclean && apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

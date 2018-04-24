@@ -1,71 +1,101 @@
 {
-    "tool-version": "0.1-beta", 
-    "name": "Build_Average_Model", 
-    "command-line": "export RUBYLIB=/work/build_average_model;source /opt/minc/1.9.15/minc-toolkit-config.sh;build_average_model.rb NUMBER_OF_ITERATIONS --serial MODEL_FILE MODEL_MASK_FILE LIST_FILES OUTPUT", 
-    "inputs": [
-        {
-            "description": "Number of rounds of iteration performed at each level", 
-            "value-key": "NUMBER_OF_ITERATIONS", 
-            "type": "String", 
-	    "command-line-flag" : "-f",
-            "optional": false, 
-            "id": "no_of_iterations", 
-            "name": "Number of iterations"
-        }, 
-        {
-            "description": "MNI model file (Example: mni_icbm152_t1_tal_nlin_sym_09a.mnc)",  
-            "value-key": "MODEL_FILE", 
-            "optional": false, 
-            "type": "File", 
-	    "command-line-flag" : "--model",
-            "id": "model_file", 
-            "name": "Model file"
-        }, 
-        {
-             "description": "MNI model mask file (Example: mni_icbm152_t1_tal_nlin_sym_09a_mask.mnc)", 
-             "value-key": "MODEL_MASK_FILE",
-             "optional": false, 
-             "type": "File",    
- 	     "command-line-flag" : "--model-mask",
-             "id": "model_mask_file",    
-             "name": "Model mask file"
-        }, 
-        {
-            "description": "Currently it is a text file containing the paths to the files. Has to be edited to select multiple directories", 
-            "value-key": "LIST_FILES", 
-            "optional": false, 
-            "type": "File", 
-	    "command-line-flag" : "--list",
-            "id": "list_files", 
-            "name": "List of files"
-        },
-	{   
-         "description": "Output Directory",
-         "value-key": "OUTPUT",
-         "optional": false,
-         "type": "File", 
-         "command-line-flag" : "-o",
-         "id": "output_dir_name", 
-         "name": "Output directory"
-         }
-
-    ], 
+    "command-line": "mkdir -p OUTPUT;export RUBYLIB=/usr/local/build_average_model/;. /root/.bashrc;/usr/local/build_average_model/build_average_model.rb --verbose --log NUMBER_OF_ITERATIONS --serial MODEL_FILE MODEL_MASK_FILE LIST_FILES --spline -o OUTPUT", 
     "container-image": {
-        "image": "laletscaria/build_average_model", 
+        "image": "laletscaria/build_avg_model", 
         "type": "docker"
     }, 
-    "schema-version": "0.5", 
-    "output-files": [
+    "description": "Build Average Model pipeline", 
+    "inputs": [
         {
-            "path-template": "OUTPUT", 
-            "description": "The models are written into this directory.", 
+            "command-line-flag": "-f", 
+            "description": "Number of rounds of iteration performed at each level", 
+            "id": "no_of_iterations", 
+            "name": "Number of iterations", 
             "optional": false, 
-            "id": "results", 
-            "name": "Results"
+            "type": "String", 
+            "value-key": "NUMBER_OF_ITERATIONS"
+        }, 
+        {
+            "command-line-flag": "--model", 
+            "description": "MNI model file (Example: mni_icbm152_t1_tal_nlin_sym_09a.mnc)", 
+            "id": "model_file", 
+            "name": "Model file", 
+            "optional": false, 
+            "type": "File", 
+            "value-key": "MODEL_FILE"
+        }, 
+        {
+            "command-line-flag": "--model-mask", 
+            "description": "MNI model mask file (Example: mni_icbm152_t1_tal_nlin_sym_09a_mask.mnc)", 
+            "id": "model_mask_file", 
+            "name": "Model mask file", 
+            "optional": false, 
+            "type": "File", 
+            "value-key": "MODEL_MASK_FILE"
+        }, 
+        {
+            "command-line-flag": "--list", 
+            "description": "Currently it is a text file containing the paths to the files. Has to be edited to select multiple directories", 
+            "id": "list_files", 
+            "name": "List of files", 
+            "optional": false, 
+            "type": "File", 
+            "value-key": "LIST_FILES"
+        }, 
+        {
+            "description": "Output Directory", 
+            "id": "output_dir_name", 
+            "name": "Output directory", 
+            "optional": false, 
+            "type": "String", 
+            "value-key": "OUTPUT"
         }
     ], 
+    "invocation-schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#", 
+        "additionalProperties": false, 
+        "dependencies": {}, 
+        "description": "Invocation schema for build_average_model.", 
+        "properties": {
+            "list_files": {
+                "type": "string"
+            }, 
+            "model_file": {
+                "type": "string"
+            }, 
+            "model_mask_file": {
+                "type": "string"
+            }, 
+            "no_of_iterations": {
+                "type": "string"
+            }, 
+            "output_dir_name": {
+                "type": "string"
+            }
+        }, 
+        "required": [
+            "no_of_iterations", 
+            "model_file", 
+            "model_mask_file", 
+            "list_files", 
+            "output_dir_name"
+        ], 
+        "title": "Build_Average_Model.invocationSchema", 
+        "type": "object"
+    }, 
+    "name": "Build_Average_Model", 
+    "output-files": [
+        {
+            "description": "The models are written into this directory.", 
+            "id": "results", 
+            "name": "Results", 
+            "optional": false, 
+            "path-template": "OUTPUT"
+        }
+    ], 
+    "schema-version": "0.5", 
     "suggested-resources": {
         "walltime-estimate": 25200
     }, 
-    "description": "Build Average Model pipeline"
+    "tool-version": "0.1-beta"
 }
