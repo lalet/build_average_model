@@ -1,0 +1,9 @@
+export MINC_TOOLKIT=/opt/minc/1.9.15
+export MINC_TOOLKIT_VERSION="1.9.15-20170529"
+export PATH=/opt/minc/1.9.15/bin:/opt/minc/1.9.15/pipeline:${PATH}
+export PERL5LIB=/opt/minc/1.9.15/perl:/opt/minc/1.9.15/pipeline:${PERL5LIB}
+export LD_LIBRARY_PATH=/opt/minc/1.9.15/lib:/opt/minc/1.9.15/lib/InsightToolkit:${LD_LIBRARY_PATH}
+export MNI_DATAPATH=/opt/minc/1.9.15/share
+export MINC_FORCE_V2=1
+export MINC_COMPRESS=4
+export VOLUME_CACHE_THRESHOLD=-1

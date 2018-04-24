@@ -76,6 +76,8 @@ ADD ./mni_icbm152_t1_tal_nlin_sym_09a_mask.mnc /opt/minc/1.9.15/share/icbm152_mo
 
 ADD ./mni_icbm152_t1_tal_nlin_sym_09a.mnc  /opt/minc/1.9.15/share/icbm152_model_09a
 
+ADD ./bash_profile /root/
+
 RUN apt-get autoclean && apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 #Fix for octave issue
