@@ -1,5 +1,5 @@
 {
-    "command-line": "mkdir -p OUTPUT;export RUBYLIB=/usr/local/build_average_model/;. /root/.bashrc;/usr/local/build_average_model/build_average_model.rb --verbose --log NUMBER_OF_ITERATIONS --serial MODEL_FILE MODEL_MASK_FILE LIST_FILES --spline -o OUTPUT", 
+    "command-line": "command-line-script.sh NUMBER_OF_ITERATIONS MODEL_FILE MODEL_MASK_FILE LIST_FILES OUTPUT",
     "container-image": {
         "image": "laletscaria/build_avg_model", 
         "type": "docker"
@@ -7,7 +7,6 @@
     "description": "Build Average Model pipeline", 
     "inputs": [
         {
-            "command-line-flag": "-f", 
             "description": "Number of rounds of iteration performed at each level", 
             "id": "no_of_iterations", 
             "name": "Number of iterations", 
@@ -16,7 +15,6 @@
             "value-key": "NUMBER_OF_ITERATIONS"
         }, 
         {
-            "command-line-flag": "--model", 
             "description": "MNI model file (Example: mni_icbm152_t1_tal_nlin_sym_09a.mnc)", 
             "id": "model_file", 
             "name": "Model file", 
@@ -25,7 +23,6 @@
             "value-key": "MODEL_FILE"
         }, 
         {
-            "command-line-flag": "--model-mask", 
             "description": "MNI model mask file (Example: mni_icbm152_t1_tal_nlin_sym_09a_mask.mnc)", 
             "id": "model_mask_file", 
             "name": "Model mask file", 
@@ -34,7 +31,6 @@
             "value-key": "MODEL_MASK_FILE"
         }, 
         {
-            "command-line-flag": "--list", 
             "description": "Currently it is a text file containing the paths to the files. Has to be edited to select multiple directories", 
             "id": "list_files", 
             "name": "List of files", 
